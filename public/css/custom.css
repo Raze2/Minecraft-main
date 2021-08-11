@@ -1,0 +1,536 @@
+.ck-editor__editable,
+textarea {
+    min-height: 150px;
+}
+
+.datatable {
+    width: 100% !important;
+}
+
+table.dataTable tbody td.select-checkbox::before,
+table.dataTable tbody td.select-checkbox::after,
+table.dataTable tbody th.select-checkbox::before,
+table.dataTable tbody th.select-checkbox::after {
+    top: 50%;
+}
+
+.dataTables_length,
+.dataTables_filter,
+.dt-buttons {
+    margin-bottom: 0.333em;
+}
+
+.dt-buttons .btn {
+    margin-left: 0.333em;
+    border-radius: 0;
+}
+
+.table.datatable {
+    box-sizing: border-box;
+    border-collapse: collapse;
+}
+
+table.dataTable thead th {
+    border-bottom: 2px solid #dee2e6;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.select2 {
+    max-width: 100%;
+    width: 100%;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-image: none;
+}
+
+.btn-group-xs > .btn,
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.searchable-title {
+    font-weight: bold;
+}
+.select2-container--open {
+    z-index: 9999;
+}
+.searchable-fields {
+    padding-left:5px;
+}
+.searchable-link {
+    padding:0 5px 0 5px;
+}
+.searchable-link:hover   {
+    cursor: pointer;
+    background: #eaeaea;
+}
+.select2-results__option {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form-group .required::after {
+    content: " *";
+    color: red;
+}
+
+.form-check.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+.dataTables_length label select {
+    width: 65px!important;
+}
+
+div.dt-button-collection {
+    padding: 0;
+}
+
+.buttons-columnVisibility {
+    display: block;
+}
+
+.buttons-columnVisibility.active {
+    background-color: rgba(128, 128, 128, 0.1);
+    font-weight: bolder;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: darkgrey;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  .list-group-item , .card , input, textarea {
+    box-shadow: 0px 10px 20px 0px rgba(31, 31, 31, 0.3);
+    color: #000 !important;
+    border: 1px solid rgba(142, 142, 142, 0.13) !important; 
+  }
+  
+  textarea::placeholder, input::placeholder {
+    color: #000 !important;
+  }
+  
+  
+  .conversations {
+    box-shadow: 0px 10px 20px 0px rgba(31, 31, 31, 0.3);
+    border: 1px solid rgba(142, 142, 142, 0.13) !important; 
+  }
+  
+  .conversations .nav {
+    border-bottom: 1px solid rgba(142, 142, 142, 0.13);
+    display: block;
+    z-index: 1111;
+    width: 100%;
+  }
+  
+  .conversations .nav>p {
+    font-size: 16px;
+    margin: 0;
+    padding-top: 28px;
+    padding-left: 15px;
+    padding-bottom: 28px;
+    display: inline-block;
+  }
+  
+  .conversations .nav p>span {
+    font-weight: bold;
+  }
+  
+  .conversations .nav button {
+    background-color: transparent;
+    border: none;
+    display: inline;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .conversations .nav i {
+    margin: 0;
+    border-right: 1px solid rgba(142, 142, 142, 0.13); 
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+  }
+  
+  .conversations .nav i.b-left {
+    border-left: 1px solid rgba(142, 142, 142, 0.13); 
+    border-right: none;
+  }
+  
+  .conversations .nav>div>button>i {
+    border-right: 1px solid rgba(142, 142, 142, 0.13);
+  }
+  
+  .conversations .nav .icons .dropdown-menu {
+    left: 90px;
+  }
+  
+  .conversations .nav .icons .active {
+    color: #0084ff;
+  }
+  
+  .conversations .messeges {
+    margin-top: 15px;
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .conversations .messeges>div {
+    margin-bottom: 20px;
+  }
+  
+  .conversations .messeges img {
+    height: 50px;
+    width: 50px;
+    margin-right: 0;
+    margin-left: 10px;
+    float: left;
+    display: inline-block;
+  }
+  
+  .conversations .messeges .messege {
+    max-width: 65%;
+    margin: 10px 0 0 15px;
+  }
+  
+  .conversations .messeges .messege p {
+    margin: 0;
+    padding: 5px;
+  }
+  
+  .conversations .messeges .in-going .speech-bubble {
+    position: relative;
+    background: #ffffff;
+    border-radius: .4em;
+  }
+  
+  .conversations .messeges .in-going .speech-bubble:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-right-color: #ffffff;
+    border-left: 0;
+    margin-top: -5px;
+    margin-left: -5px;
+  }
+  
+  .conversations .messeges .out-going .speech-bubble {
+    position: relative;
+    background: #0084ff;
+    border-radius: .4em;
+  }
+  
+  .conversations .messeges .out-going .speech-bubble:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left-color: #0084ff;
+    border-right: 0;
+    margin-top: -5px;
+    margin-right: -5px;
+  }
+  
+  .conversations .messeges .speech-bubble>p {
+    margin: 2px;
+    overflow: auto;
+  }
+  
+  .conversations .messeges .attachment {}
+  
+  .conversations .messeges .attachment>img {
+    margin: 15px;
+    width: 150px;
+    height: 150px;
+  }
+  
+  .conversations .messeges .attachment .text {
+    margin: 15px;
+  }
+  
+  .conversations .messeges .attachment .text>h2 {
+    font: 20px !important;
+  }
+  
+  .conversations .messeges .attachment .text>p {
+    font: 12px;
+  }
+  
+  .conversations .messeges .attachment button {
+    margin-top: 10px;
+    background-color: #2263b0;
+    font-size: 10px;
+  }
+  
+  .conversations .text-input {
+    padding-left: 10px;
+    padding-right: 10px;
+    bottom: 0px;
+    width: 100%;
+    min-height: 30px;
+  }
+  
+  .conversations .text-input i {
+    display: inline;
+  }
+  
+  .conversations .text-input .messege-input {
+    width: 86%;
+    margin: auto;
+    display: inline-block;
+  }
+  
+  .conversations .text-input .messege-input .form-control {
+    border: none;
+    border-radius: 0;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: #fff;
+  }
+  
+  .conversations .text-input button {
+    border: none;
+    display: inline;
+    padding: 0;
+  }
+  
+  
+  @media (max-width:991px) {
+    .conversations {
+        min-height: 900px;
+    }
+    .conversations .text-input .messege-input {
+        width: 85%;
+        margin: auto;
+        display: inline-block;
+    }
+    .conversations .messeges>div {
+        margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .conversations {
+        min-height: 700px;
+    }
+    .conversations .nav>p {
+        font-size: 10px;
+        display: inline-block;
+        padding: 0;
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    .conversations .nav i {
+        margin: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 20px;
+        padding-right: 20px;
+        cursor: pointer;
+    }
+    .conversations .messeges img {
+        width: 40px;
+        height: 40px;
+    }
+    .conversations .messeges .in-going .speech-bubble {
+        margin-right: 0;
+    }
+    .conversations .messeges .out-going .speech-bubble {
+        margin-left: 1px;
+    }
+    .conversations .messeges .speech-bubble>p {
+        margin: 1px;
+        font-size: 10px;
+    }
+    .conversations .messeges .attachment>img {
+        margin: 15px;
+        width: 70px;
+        height: 70px;
+    }
+    .conversations .messeges .attachment .text {
+        margin: 10px;
+    }
+    .conversations .messeges .attachment .text h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 25px;
+    }
+    .conversations .messeges .attachment .text p {
+        margin-top: 0;
+    }
+    .conversations .messeges .attachment button {
+        margin-top: 1px;
+        padding: 5px 3px;
+        background-color: #2263b0;
+    }
+    .conversations .text-input .messege-input {
+        width: 80%;
+        margin: auto;
+        display: inline-block;
+    }
+    .conversations .messeges>div {
+        margin-bottom: 5px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .conversations {
+        min-height: 500px;
+    }
+    .conversations .nav>p {
+        font-size: 5px;
+        display: inline-block;
+        padding: 0;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+    .conversations .nav i {
+        margin: 0;
+        border-left: 1px solid #e3e5ea;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        cursor: pointer;
+    }
+    .conversations .messeges img {
+        width: 30px;
+        height: 30px;
+    }
+     .conversations .messeges .text:first-child {
+    margin-top: 20px;
+    }
+    .conversations .messeges .speech-bubble>p {
+        margin: 1px;
+        font-size: 6px;
+    }
+    .conversations .messeges .attachment>img {
+        margin: 5px;
+        width: 50px;
+        height: 50px;
+    }
+    .conversations .messeges .attachment .text {
+        margin: 10px;
+    }
+    .conversations .messeges .attachment .text h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 20px;
+    }
+    .conversations .messeges .attachment .text p {
+        margin-top: 0;
+    }
+    .conversations .messeges .attachment button {
+        margin-top: 1px;
+        padding: 5px 3px;
+        font-size: 8px;
+        background-color: #2263b0;
+    }
+    .conversations .text-input .messege-input {
+        width: 66%;
+        margin: auto;
+        display: inline-block;
+    }
+    .conversations .messeges>div {
+        margin-bottom: 3px;
+    }
+  }
+  
+  @media (max-width: 302px) {
+    .conversations {
+        min-height: 300px;
+    }
+    .conversations .nav>p {
+        display: none;
+    }
+    .conversations .nav i {
+        margin: 0;
+        border-left: 1px solid #e3e5ea;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+    }
+    .conversations .messeges img {
+        width: 20px;
+        height: 20px;
+    }
+    .conversations .messeges .text:first-child {
+    margin-top: 20px;
+    }
+  
+    .conversations .messeges .text:last-child {
+    margin-bottom: 80px;
+    }
+    .conversations .messeges .speech-bubble>p {
+        margin: 1px;
+        font-size: 3px;
+    }
+    .conversations .messeges .attachment>img {
+        margin: 2px;
+        width: 20px;
+        height: 20px;
+    }
+    .conversations .messeges .attachment .text {
+        margin: 3px;
+    }
+    .conversations .messeges .attachment .text h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 5px;
+    }
+    .conversations .messeges .attachment .text p {
+        margin-top: 0;
+        font-size: 3px;
+    }
+    .conversations .messeges .attachment button {
+        margin-top: 1px;
+        padding: 3px 1px;
+        font-size: 3px;
+        background-color: #2263b0;
+    }
+    .conversations .text-input .messege-input {
+        width: 55%;
+        margin: auto;
+        display: inline-block;
+    }
+    .conversations .messeges>div {
+        margin-bottom: 1px;
+    }
+  }
+
+  button:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
