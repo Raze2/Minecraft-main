@@ -101,7 +101,7 @@
                     </li>
                 @endcan
                 @can('content_management_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/content-categories*") ? "menu-open" : "" }} {{ request()->is("admin/content-tags*") ? "menu-open" : "" }} {{ request()->is("admin/content-pages*") ? "menu-open" : "" }} {{ request()->is("admin/posts*") ? "menu-open" : "" }} {{ request()->is("admin/staff*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/content-categories*") ? "menu-open" : "" }} {{ request()->is("admin/content-tags*") ? "menu-open" : "" }} {{ request()->is("admin/content-pages*") ? "menu-open" : "" }} {{ request()->is("admin/posts*") ? "menu-open" : "" }} {{ request()->is("admin/game*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-book">
 
@@ -160,14 +160,14 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('staff_access')
+                            @can('game_access')
                                 <li class="nav-item">
-                                    <a href="{{ route("admin.staff.index") }}" class="nav-link {{ request()->is("admin/staff") || request()->is("admin/staff/*") ? "active" : "" }}">
+                                    <a href="{{ route("admin.games.index") }}" class="nav-link {{ request()->is("admin/game") || request()->is("admin/game/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-male">
 
                                         </i>
                                         <p>
-                                            {{ trans('cruds.staff.title') }}
+                                            {{ trans('cruds.game.title') }}
                                         </p>
                                     </a>
                                 </li>

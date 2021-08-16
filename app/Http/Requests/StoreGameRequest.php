@@ -2,26 +2,23 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Staff;
+use App\Models\Game;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class StoreStaffRequest extends FormRequest
+class StoreGameRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('staff_create');
+        return Gate::allows('game_create');
     }
 
     public function rules()
     {
         return [
-            'username' => [
+            'name' => [
                 'string',
-                'required',
-            ],
-            'role' => [
                 'required',
             ],
             'image' => [

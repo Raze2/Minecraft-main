@@ -184,23 +184,23 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 44,
-                'title' => 'staff_create',
+                'title' => 'game_create',
             ],
             [
                 'id'    => 45,
-                'title' => 'staff_edit',
+                'title' => 'game_edit',
             ],
             [
                 'id'    => 46,
-                'title' => 'staff_show',
+                'title' => 'game_show',
             ],
             [
                 'id'    => 47,
-                'title' => 'staff_delete',
+                'title' => 'game_delete',
             ],
             [
                 'id'    => 48,
-                'title' => 'staff_access',
+                'title' => 'game_access',
             ],
             [
                 'id'    => 49,

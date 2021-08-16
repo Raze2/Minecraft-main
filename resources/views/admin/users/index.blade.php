@@ -44,6 +44,9 @@
                         {{ trans('cruds.user.fields.roles') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.skin_image') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.user.fields.username') }}
                     </th>
                     <th>
@@ -77,6 +80,8 @@
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -145,6 +150,7 @@
 { data: 'email_verified_at', name: 'email_verified_at' },
 { data: 'two_factor', name: 'two_factor' },
 { data: 'roles', name: 'roles.title' },
+{ data: 'skin_image', name: 'skin_image', sortable: false, searchable: false },
 { data: 'username', name: 'username' },
 { data: 'uuid', name: 'uuid' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

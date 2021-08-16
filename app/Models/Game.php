@@ -10,19 +10,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Staff extends Model implements HasMedia
+class Game extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
     use HasFactory;
 
-    public const ROLE_SELECT = [
-        'owner'     => 'Owner',
-        'developer' => 'Developer',
-        'admin'     => 'Admin',
-    ];
-
-    public $table = 'staff';
+    public $table = 'games';
 
     public static $searchable = [
         'username',
@@ -39,7 +33,7 @@ class Staff extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'username',
+        'name',
         'role',
         'url',
         'created_at',

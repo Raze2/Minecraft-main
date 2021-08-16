@@ -293,14 +293,14 @@ return [
             'deleted_at_helper'     => ' ',
         ],
     ],
-    'staff' => [
-        'title'          => 'Staff',
-        'title_singular' => 'Staff',
+    'game' => [
+        'title'          => 'Game',
+        'title_singular' => 'Game',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',
-            'username'          => 'Username',
-            'username_helper'   => ' ',
+            'name'          => 'name',
+            'name_helper'   => ' ',
             'role'              => 'Role',
             'role_helper'       => ' ',
             'image'             => 'Image',

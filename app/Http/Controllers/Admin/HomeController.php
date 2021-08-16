@@ -9,7 +9,7 @@ class HomeController
     public function index()
     {
         $settings1 = [
-            'chart_title'           => 'Users Count',
+            'chart_title'           => 'Users Count last 30 days',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\User',
@@ -46,10 +46,10 @@ class HomeController
         }
 
         $settings2 = [
-            'chart_title'           => 'Products last 30 days',
+            'chart_title'           => 'Tickets last 30 days',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
-            'model'                 => 'App\Models\Product',
+            'model'                 => 'App\Models\Tickets',
             'group_by_field'        => 'created_at',
             'group_by_period'       => 'month',
             'aggregate_function'    => 'count',

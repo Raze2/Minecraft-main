@@ -3,49 +3,37 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.staff.title_singular') }}
+        {{ trans('global.edit') }} {{ trans('cruds.game.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.staff.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("admin.games.update", [$game->id]) }}" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="username">{{ trans('cruds.staff.fields.username') }}</label>
-                <input class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" type="text" name="username" id="username" value="{{ old('username', '') }}" required>
-                @if($errors->has('username'))
-                    <span class="text-danger">{{ $errors->first('username') }}</span>
+                <label class="required" for="name">{{ trans('cruds.game.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $game->name) }}" required>
+                @if($errors->has('name'))
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.staff.fields.username_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.game.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required">{{ trans('cruds.staff.fields.role') }}</label>
-                <select class="form-control {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role" id="role" required>
-                    <option value disabled {{ old('role', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\Staff::ROLE_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('role', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('role'))
-                    <span class="text-danger">{{ $errors->first('role') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.staff.fields.role_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="image">{{ trans('cruds.staff.fields.image') }}</label>
+                <label class="required" for="image">{{ trans('cruds.game.fields.image') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('image') ? 'is-invalid' : '' }}" id="image-dropzone">
                 </div>
                 @if($errors->has('image'))
                     <span class="text-danger">{{ $errors->first('image') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.staff.fields.image_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.game.fields.image_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="url">{{ trans('cruds.staff.fields.url') }}</label>
-                <input class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" type="text" name="url" id="url" value="{{ old('url', '') }}">
+                <label for="url">{{ trans('cruds.game.fields.url') }}</label>
+                <input class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" type="text" name="url" id="url" value="{{ old('url', $game->url) }}">
                 @if($errors->has('url'))
                     <span class="text-danger">{{ $errors->first('url') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.staff.fields.url_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.game.fields.url_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
@@ -63,7 +51,7 @@
 @section('scripts')
 <script>
     Dropzone.options.imageDropzone = {
-    url: '{{ route('admin.staff.storeMedia') }}',
+    url: '{{ route('admin.games.storeMedia') }}',
     maxFilesize: 2, // MB
     acceptedFiles: '.jpeg,.jpg,.png,.gif',
     maxFiles: 1,
@@ -88,8 +76,8 @@
       }
     },
     init: function () {
-@if(isset($staff) && $staff->image)
-      var file = {!! json_encode($staff->image) !!}
+@if(isset($game) && $game->image)
+      var file = {!! json_encode($game->image) !!}
           this.options.addedfile.call(this, file)
       this.options.thumbnail.call(this, file, file.preview)
       file.previewElement.classList.add('dz-complete')

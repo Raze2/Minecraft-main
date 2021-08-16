@@ -10,15 +10,15 @@ use Tests\DuskTestCase;
  * @internal
  * @coversNothing
  */
-class StaffTest extends DuskTestCase
+class GameTest extends DuskTestCase
 {
     public function testIndex()
     {
         $admin = App\Models\User::find(1);
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin);
-            $browser->visit(route('admin.staff.index'));
-            $browser->assertRouteIs('admin.staff.index');
+            $browser->visit(route('admin.games.index'));
+            $browser->assertRouteIs('admin.games.index');
         });
     }
 }

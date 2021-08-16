@@ -1,9 +1,9 @@
-@extends('layouts.frontend', ['breadcrumb'=>'Store Terms'])
+@extends('layouts.frontend', ['breadcrumb'=>'Reports'])
 
 @section('content')
     <section class="section_padding">
         <div class="container">
-            @php ($page = App\Models\ContentPage::find(4))
+            @php ($page = App\Models\ContentPage::find(5))
             @isset($page)
                 <div class="row justify-content-center">
                     <div class="col-lg-8">

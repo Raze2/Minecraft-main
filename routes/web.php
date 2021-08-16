@@ -16,6 +16,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::post('users/parse-csv-import', 'UsersController@parseCsvImport')->name('users.parseCsvImport');
     Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
+    Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
+    Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
     Route::resource('users', 'UsersController');
 
     // Audit Logs
@@ -48,13 +50,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('posts/process-csv-import', 'PostsController@processCsvImport')->name('posts.processCsvImport');
     Route::resource('posts', 'PostsController');
 
-    // Staff
-    Route::delete('staff/destroy', 'StaffController@massDestroy')->name('staff.massDestroy');
-    Route::post('staff/media', 'StaffController@storeMedia')->name('staff.storeMedia');
-    Route::post('staff/ckmedia', 'StaffController@storeCKEditorImages')->name('staff.storeCKEditorImages');
-    Route::post('staff/parse-csv-import', 'StaffController@parseCsvImport')->name('staff.parseCsvImport');
-    Route::post('staff/process-csv-import', 'StaffController@processCsvImport')->name('staff.processCsvImport');
-    Route::resource('staff', 'StaffController');
+    // Game
+    Route::delete('games/destroy', 'GameController@massDestroy')->name('games.massDestroy');
+    Route::post('games/media', 'GameController@storeMedia')->name('games.storeMedia');
+    Route::post('games/ckmedia', 'GameController@storeCKEditorImages')->name('games.storeCKEditorImages');
+    Route::post('games/parse-csv-import', 'GameController@parseCsvImport')->name('games.parseCsvImport');
+    Route::post('games/process-csv-import', 'GameController@processCsvImport')->name('games.processCsvImport');
+    Route::resource('games', 'GameController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('tickets', 'TicketController@index')->name('tickets.index');
@@ -70,6 +72,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('tickets/{ticket}/close', 'TicketController@closeTicket')->name('ticket.close');
     Route::post('tickets/{ticket}/permanently-close', 'TicketController@permanentlyCloseTicket')->name('ticket.permanently');
 
+
 });
 
 // Frontend 
@@ -77,11 +80,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 Route::get('/', 'Frontend\HomeController@index')->name('home');
 Route::get('update-and-news',"Frontend\PostsController@index")->name('posts.index');
 Route::get('update-and-news/{post}',"Frontend\PostsController@show")->name('posts.show');
-Route::view('staff', 'frontend.pages.staff')->name('frontend.pages.staff');
+Route::view('players', 'frontend.pages.players')->name('frontend.pages.players');
+Route::view('our-games', 'frontend.pages.games')->name('frontend.pages.games');
 Route::view('about', 'frontend.pages.about')->name('frontend.pages.about');
 Route::view('contact', 'frontend.pages.contact')->name('frontend.pages.contact');
 Route::view('privacy-policy', 'frontend.pages.privacy')->name('frontend.pages.privacy');
 Route::view('store-terms', 'frontend.pages.store-terms')->name('frontend.pages.store-terms');
+Route::view('general-terms', 'frontend.pages.general-terms')->name('frontend.pages.general-terms');
+Route::view('rules', 'frontend.pages.rules')->name('frontend.pages.rules');
+Route::view('reports', 'frontend.pages.reports')->name('frontend.pages.reports');
+Route::view('youtuber-apply', 'frontend.pages.youtuber-apply')->name('frontend.pages.youtuber-apply');
+
+Route::view('store', 'frontend.store.index')->name('frontend.store.index');
 
 
 

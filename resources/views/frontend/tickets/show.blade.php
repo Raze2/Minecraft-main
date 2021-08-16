@@ -23,7 +23,12 @@
             <div class="messeges wrap" id="messeges">
                 @foreach($ticket->messages as $message)
                 <div class="text {{ $message->is_admin ? 'in-going' : 'out-going'}}">
-                    <span class="text-white {{ $message->is_admin ? 'float-left' : 'float-right'}} m-3">{{ $message->sender->name }}</span>
+                    <div class="position-relative">
+                        @if ($message->is_admin)
+                        <span class="text-white {{ $message->is_admin ? 'float-left' : 'float-right'}} m-3">{{ $message->sender->roles->first()->title }}</span>
+                        @endif
+                        <p class="text-white {{ $message->is_admin ? 'float-left position-absolute' : 'float-right'}} m-3" style="{{$message->is_admin ? 'top: 2rem;' : ''}}">{{ $message->sender->name }}</p>
+                    </div>
                     {{-- <img src="img/avatar1.jpg" class="img-fluid rounded-circle float-left" alt=""> --}}
                     <hgroup class="speech-bubble messege {{ $message->is_admin ? 'float-left' : 'float-right'}}">
                         <p class="text-dark font-weight-bold">{!! nl2br(e($message->content)) !!}</p>
@@ -69,18 +74,18 @@
             @if($ticket->receiverOrCreator() !== null && !$ticket->receiverOrCreator()->trashed())
             @if ($ticket->status == 'open')
                 <div class="row text">
-                    <div class="text-input">
+                    <div class="text-input mx-4 my-3">
                         <form class="mb-0 row" action="{{ route("frontend.tickets.reply", [$ticket->id]) }}" method="POST">
                             @csrf
                             <!-- Attachment button -->
                             {{-- <button class="col text-white" type="button" name=""><i class="fa fa-paperclip fa-lg"></i>
                             </button> --}}
                             <!-- Text input -->
-                            <div class="form-group messege-input col-10">
-                                <textarea class="form-control" name="content" placeholder="Type your message" required></textarea>
+                            <div class="form-group messege-input col-11">
+                                <input class="form-control" name="content" placeholder="Type your message" required>
                             </div>
                             <!-- send button -->
-                            <button class="col btn_1 text-white mr-3" type="submit" name=""><i class="fa fa-send fa-3x"></i>
+                            <button class="col text-white mr-3" type="submit" name=""><i class="fa fa-send send-button-i"></i>
                             </button>
                         </form>
                     </div>

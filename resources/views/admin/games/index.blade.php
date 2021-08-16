@@ -1,45 +1,42 @@
 @extends('layouts.admin')
 @section('content')
-@can('staff_create')
+@can('game_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.staff.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.staff.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.games.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.game.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
-            @include('csvImport.modal', ['model' => 'Staff', 'route' => 'admin.staff.parseCsvImport'])
+            @include('csvImport.modal', ['model' => 'Game', 'route' => 'admin.games.parseCsvImport'])
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.staff.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.game.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Staff">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Game">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.id') }}
+                            {{ trans('cruds.game.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.username') }}
+                            {{ trans('cruds.game.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.role') }}
+                            {{ trans('cruds.game.fields.image') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.image') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.staff.fields.url') }}
+                            {{ trans('cruds.game.fields.url') }}
                         </th>
                         <th>
                             &nbsp;
@@ -55,14 +52,6 @@
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
-                            <select class="search" strict="true">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach(App\Models\Staff::ROLE_SELECT as $key => $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
                         </td>
                         <td>
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -72,45 +61,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($staff as $key => $staff)
-                        <tr data-entry-id="{{ $staff->id }}">
+                    @foreach($games as $key => $game)
+                        <tr data-entry-id="{{ $game->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $staff->id ?? '' }}
+                                {{ $game->id ?? '' }}
                             </td>
                             <td>
-                                {{ $staff->username ?? '' }}
+                                {{ $game->name ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\Staff::ROLE_SELECT[$staff->role] ?? '' }}
-                            </td>
-                            <td>
-                                @if($staff->image)
-                                    <a href="{{ $staff->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $staff->image->getUrl('thumb') }}">
+                                @if($game->image)
+                                    <a href="{{ $game->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $game->image->getUrl('thumb') }}">
                                     </a>
                                 @endif
                             </td>
                             <td>
-                                {{ $staff->url ?? '' }}
+                                {{ $game->url ?? '' }}
                             </td>
                             <td>
-                                @can('staff_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.staff.show', $staff->id) }}">
+                                @can('game_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.games.show', $game->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('staff_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.staff.edit', $staff->id) }}">
+                                @can('game_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.games.edit', $game->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('staff_delete')
-                                    <form action="{{ route('admin.staff.destroy', $staff->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('game_delete')
+                                    <form action="{{ route('admin.games.destroy', $game->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -135,11 +121,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('staff_delete')
+@can('game_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.staff.massDestroy') }}",
+    url: "{{ route('admin.games.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -170,7 +156,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-Staff:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-Game:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

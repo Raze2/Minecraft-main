@@ -10,7 +10,7 @@
             <div class="media contact-info col">
                 <span class="contact-info__icon"><i class="fa fa-home text-white"></i></span>
                 <div class="media-body">
-                    <h3>Jordan, Jordan.</h3>
+                    <h3>UAE, UAE.</h3>
                     <p>ASD, ASD 1231123</p>
                 </div>
             </div>
@@ -28,9 +28,6 @@
                     <p>Send us your questions anytime!</p>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center mt-5">
-            <a href="{{route('frontend.tickets.index')}}" class="btn_1">Open a ticket</a>
         </div>
     </div>
 </section>

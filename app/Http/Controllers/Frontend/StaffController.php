@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Staff;
+use App\Models\Game;
 
-class StaffController extends Controller
+class GameController extends Controller
 {
 
     public function index()
     {
-        $staff = Staff::with('media')->get();
+        $game = Game::with('media')->get();
 
-        return view('frontend.staff.index', compact('staff'));
+        return view('frontend.games.index', compact('game'));
     }
 
   }

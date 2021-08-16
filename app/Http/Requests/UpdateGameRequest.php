@@ -2,26 +2,23 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Staff;
+use App\Models\Game;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class UpdateStaffRequest extends FormRequest
+class UpdateGameRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('staff_edit');
+        return Gate::allows('game_edit');
     }
 
     public function rules()
     {
         return [
-            'username' => [
+            'name' => [
                 'string',
-                'required',
-            ],
-            'role' => [
                 'required',
             ],
             'url' => [

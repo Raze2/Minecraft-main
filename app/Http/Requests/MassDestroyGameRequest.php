@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Staff;
+use App\Models\Game;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class MassDestroyStaffRequest extends FormRequest
+class MassDestroyGameRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('staff_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('game_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -20,7 +20,7 @@ class MassDestroyStaffRequest extends FormRequest
     {
         return [
             'ids'   => 'required|array',
-            'ids.*' => 'exists:staff,id',
+            'ids.*' => 'exists:game,id',
         ];
     }
 }

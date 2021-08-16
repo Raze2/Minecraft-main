@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.staff.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.game.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.staff.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.games.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,52 +17,52 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.staff.fields.id') }}
+                            {{ trans('cruds.game.fields.id') }}
                         </th>
                         <td>
-                            {{ $staff->id }}
+                            {{ $game->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.staff.fields.username') }}
+                            {{ trans('cruds.game.fields.name') }}
                         </th>
                         <td>
-                            {{ $staff->username }}
+                            {{ $game->name }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.staff.fields.role') }}
+                            {{ trans('cruds.game.fields.role') }}
                         </th>
                         <td>
-                            {{ App\Models\Staff::ROLE_SELECT[$staff->role] ?? '' }}
+                            {{ App\Models\Game::ROLE_SELECT[$game->role] ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.staff.fields.image') }}
+                            {{ trans('cruds.game.fields.image') }}
                         </th>
                         <td>
-                            @if($staff->image)
-                                <a href="{{ $staff->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $staff->image->getUrl('thumb') }}">
+                            @if($game->image)
+                                <a href="{{ $game->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $game->image->getUrl('thumb') }}">
                                 </a>
                             @endif
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.staff.fields.url') }}
+                            {{ trans('cruds.game.fields.url') }}
                         </th>
                         <td>
-                            {{ $staff->url }}
+                            {{ $game->url }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.staff.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.games.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

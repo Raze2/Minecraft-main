@@ -14,7 +14,7 @@ class PagesSeeder extends Seeder
      */
     public function run()
     {
-        $roles = [
+        $pages = [
             [
                 'id'    => 1,
                 'title' => 'About Minecrafter',
@@ -27,11 +27,31 @@ class PagesSeeder extends Seeder
             ],
             [
                 'id'    => 3,
+                'title' => 'General Terms',
+                'page_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum, enim nec molestie viverra, lacus nisl accumsan enim, at porta eros odio at dui. Integer quis sem pellentesque, consectetur arcu eget, rutrum dolor. Praesent mauris felis, fringilla sit amet hendrerit vel, finibus at sapien. Suspendisse ut feugiat nunc, at dictum turpis. Nam eget tortor sit amet risus iaculis ultrices ac sed elit. Nunc vestibulum fringilla est non tincidunt. Cras sed mauris nec libero aliquet blandit et ut ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi pretium augue tellus, at faucibus urna eleifend sed. Nullam faucibus justo quam, non porta elit eleifend vitae.'
+            ],
+            [
+                'id'    => 4,
                 'title' => 'Store Terms',
+                'page_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum, enim nec molestie viverra, lacus nisl accumsan enim, at porta eros odio at dui. Integer quis sem pellentesque, consectetur arcu eget, rutrum dolor. Praesent mauris felis, fringilla sit amet hendrerit vel, finibus at sapien. Suspendisse ut feugiat nunc, at dictum turpis. Nam eget tortor sit amet risus iaculis ultrices ac sed elit. Nunc vestibulum fringilla est non tincidunt. Cras sed mauris nec libero aliquet blandit et ut ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi pretium augue tellus, at faucibus urna eleifend sed. Nullam faucibus justo quam, non porta elit eleifend vitae.'
+            ],
+            [
+                'id'    => 5,
+                'title' => 'Reports',
+                'page_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum, enim nec molestie viverra, lacus nisl accumsan enim, at porta eros odio at dui. Integer quis sem pellentesque, consectetur arcu eget, rutrum dolor. Praesent mauris felis, fringilla sit amet hendrerit vel, finibus at sapien. Suspendisse ut feugiat nunc, at dictum turpis. Nam eget tortor sit amet risus iaculis ultrices ac sed elit. Nunc vestibulum fringilla est non tincidunt. Cras sed mauris nec libero aliquet blandit et ut ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi pretium augue tellus, at faucibus urna eleifend sed. Nullam faucibus justo quam, non porta elit eleifend vitae.'
+            ],
+            [
+                'id'    => 6,
+                'title' => 'Rules',
+                'page_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum, enim nec molestie viverra, lacus nisl accumsan enim, at porta eros odio at dui. Integer quis sem pellentesque, consectetur arcu eget, rutrum dolor. Praesent mauris felis, fringilla sit amet hendrerit vel, finibus at sapien. Suspendisse ut feugiat nunc, at dictum turpis. Nam eget tortor sit amet risus iaculis ultrices ac sed elit. Nunc vestibulum fringilla est non tincidunt. Cras sed mauris nec libero aliquet blandit et ut ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi pretium augue tellus, at faucibus urna eleifend sed. Nullam faucibus justo quam, non porta elit eleifend vitae.'
+            ],
+            [
+                'id'    => 7,
+                'title' => 'Youtuber Apply',
                 'page_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum, enim nec molestie viverra, lacus nisl accumsan enim, at porta eros odio at dui. Integer quis sem pellentesque, consectetur arcu eget, rutrum dolor. Praesent mauris felis, fringilla sit amet hendrerit vel, finibus at sapien. Suspendisse ut feugiat nunc, at dictum turpis. Nam eget tortor sit amet risus iaculis ultrices ac sed elit. Nunc vestibulum fringilla est non tincidunt. Cras sed mauris nec libero aliquet blandit et ut ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi pretium augue tellus, at faucibus urna eleifend sed. Nullam faucibus justo quam, non porta elit eleifend vitae.'
             ],
         ];
 
-        ContentPage::insert($roles);
+        ContentPage::insert($pages);
     }
 }
