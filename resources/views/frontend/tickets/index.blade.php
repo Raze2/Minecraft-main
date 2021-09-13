@@ -1,9 +1,7 @@
 @extends('layouts.frontend', ['breadcrumb' => $title])
 
-@section('breadcrumb', $title)
-
 @section('content')
-<div class="content container">
+<div class="content container padding_top">
     <div class="row">
         <p class="col-lg-12">
             {{$title}}
@@ -30,7 +28,7 @@
                 <a href="{{ route('frontend.tickets.showClosed') }}" class="list-group-item">
                     @if($unreads['closed'] > 0)
                     <strong>
-                        {{ trans('global.closed') }}
+                        {{ trans('global.closed_tickets') }}
                         ({{ $unreads['closed'] }})
                     </strong>
                     @else

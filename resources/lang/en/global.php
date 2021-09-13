@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'user'                           => 'User',
     'actions'                        => 'Actions',
     'add'                            => 'Add',
     'allRightsReserved'              => 'All rights reserved.',
@@ -19,8 +20,9 @@ return [
     'forgot_password'                => 'Forgot your password?',
     'home'                           => 'Home',
     'list'                           => 'List',
-    'login'                          => 'Login',
+    'login'                          => 'Log in NOW',
     'login_email'                    => 'Email',
+    'login_username'                 => 'Username',
     'login_password'                 => 'Password',
     'login_password_confirmation'    => 'Password confirmation',
     'logout'                         => 'Logout',

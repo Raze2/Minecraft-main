@@ -11,8 +11,11 @@ class CreateContentPagesTable extends Migration
         Schema::create('content_pages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->nullable();
+            $table->string('title_ar')->nullable();
             $table->longText('page_text')->nullable();
+            $table->longText('page_text_ar')->nullable();
             $table->longText('excerpt')->nullable();
+            $table->longText('excerpt_ar')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

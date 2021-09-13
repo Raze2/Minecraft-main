@@ -1,6 +1,59 @@
 <?php
 
-Auth::routes();
+Route::view('pay', 'frontend.store.pay');
+
+
+// Frontend 
+
+Route::get('player/search', 'Frontend\ProfileController@searchIGN')->name('player.IGN');
+Route::get('/login', 'Frontend\LoginController@login')->name('frontend.login');
+Route::post('/login', 'Frontend\LoginController@doLogin')->name('frontend.login');
+Route::post('/logout', 'LoginController@logout')->name('frontend.logout'); 
+Route::get('/', 'Frontend\HomeController@index')->name('home');
+Route::get('update-and-news',"Frontend\PostsController@index")->name('posts.index');
+Route::get('update-and-news/{post}',"Frontend\PostsController@show")->name('posts.show');
+
+Route::get('store/{cat}', 'Frontend\ProductController@index')->name('frontend.store.index');
+Route::get('our-games', 'Frontend\GameController@index')->name('frontend.pages.games');
+
+Route::view('staff', 'frontend.pages.staff')->name('frontend.pages.staff');
+Route::view('about', 'frontend.pages.about')->name('frontend.pages.about');
+Route::view('contact', 'frontend.pages.contact')->name('frontend.pages.contact');
+Route::view('privacy-policy', 'frontend.pages.privacy')->name('frontend.pages.privacy');
+Route::view('store-terms', 'frontend.pages.store-terms')->name('frontend.pages.store-terms');
+Route::view('general-terms', 'frontend.pages.general-terms')->name('frontend.pages.general-terms');
+Route::view('rules', 'frontend.pages.rules')->name('frontend.pages.rules');
+Route::view('reports', 'frontend.pages.reports')->name('frontend.pages.reports');
+Route::view('youtuber-apply', 'frontend.pages.youtuber-apply')->name('frontend.pages.youtuber-apply');
+
+
+Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['auth', '2fa']], function () {
+    Route::get('player', 'ProfileController@getStats')->name('player.stats');
+    Route::view('orders', 'frontend.orders')->name('orders');
+
+    Route::get('tickets', 'TicketController@index')->name('tickets.index');
+    Route::get('tickets/create', 'TicketController@createTicket')->name('tickets.createTicket');
+    Route::post('tickets', 'TicketController@storeTicket')->name('tickets.storeTicket');
+    Route::get('tickets/open', 'TicketController@showOpen')->name('tickets.showOpen');
+    Route::get('tickets/closed', 'TicketController@showClosed')->name('tickets.showClosed');
+    Route::get('tickets/{ticket}', 'TicketController@showMessages')->name('tickets.showMessages');
+    Route::post('tickets/{ticket}/reply', 'TicketController@replyToTicket')->name('tickets.reply');
+    Route::post('tickets/{ticket}/open', 'TicketController@openTicket')->name('ticket.open');
+    Route::post('tickets/{ticket}/close', 'TicketController@closeTicket')->name('ticket.close');
+
+    Route::get('store/pay/{product}', 'ProductController@pay')->name('store.pay');
+    Route::post('paypal/order/create',[\App\Http\Controllers\PaypalPaymentController::class,'create']);
+    Route::post('paypal/order/capture/',[\App\Http\Controllers\PaypalPaymentController::class,'capture']);   
+    Route::post('/order/check-coupon',[\App\Http\Controllers\Frontend\ProductController::class,'checkCoupon']);
+    
+    
+});
+
+// Admin
+
+Route::group(['prefix' => 'admin'], function (){
+    Auth::routes(['register' => false]);
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', '2fa', 'admin']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -16,31 +69,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::post('users/parse-csv-import', 'UsersController@parseCsvImport')->name('users.parseCsvImport');
     Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
-    Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
-    Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
     Route::resource('users', 'UsersController');
-
-    // Audit Logs
-    Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
-
-    // User Alerts
-    Route::delete('user-alerts/destroy', 'UserAlertsController@massDestroy')->name('user-alerts.massDestroy');
-    Route::get('user-alerts/read', 'UserAlertsController@read');
-    Route::resource('user-alerts', 'UserAlertsController', ['except' => ['edit', 'update']]);
-
-    // Content Category
-    Route::delete('content-categories/destroy', 'ContentCategoryController@massDestroy')->name('content-categories.massDestroy');
-    Route::resource('content-categories', 'ContentCategoryController');
-
-    // Content Tag
-    Route::delete('content-tags/destroy', 'ContentTagController@massDestroy')->name('content-tags.massDestroy');
-    Route::resource('content-tags', 'ContentTagController');
-
-    // Content Page
-    Route::delete('content-pages/destroy', 'ContentPageController@massDestroy')->name('content-pages.massDestroy');
-    Route::post('content-pages/media', 'ContentPageController@storeMedia')->name('content-pages.storeMedia');
-    Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
-    Route::resource('content-pages', 'ContentPageController');
 
     // Posts
     Route::delete('posts/destroy', 'PostsController@massDestroy')->name('posts.massDestroy');
@@ -57,6 +86,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('games/parse-csv-import', 'GameController@parseCsvImport')->name('games.parseCsvImport');
     Route::post('games/process-csv-import', 'GameController@processCsvImport')->name('games.processCsvImport');
     Route::resource('games', 'GameController');
+
+    // Content Page
+    Route::delete('content-pages/destroy', 'ContentPageController@massDestroy')->name('content-pages.massDestroy');
+    Route::post('content-pages/media', 'ContentPageController@storeMedia')->name('content-pages.storeMedia');
+    Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
+    Route::resource('content-pages', 'ContentPageController');
+
+    // Product
+    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
+    Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
+    Route::post('products/ckmedia', 'ProductController@storeCKEditorImages')->name('products.storeCKEditorImages');
+    Route::resource('products', 'ProductController');
+
+    // Coupons
+    Route::delete('coupons/destroy', 'CouponsController@massDestroy')->name('coupons.massDestroy');
+    Route::post('coupons/parse-csv-import', 'CouponsController@parseCsvImport')->name('coupons.parseCsvImport');
+    Route::post('coupons/process-csv-import', 'CouponsController@processCsvImport')->name('coupons.processCsvImport');
+    Route::resource('coupons', 'CouponsController');
+
+    Route::resource('orders', 'OrderController', ['except' => ['edit', 'update', 'destroy']]);
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('tickets', 'TicketController@index')->name('tickets.index');
@@ -75,27 +124,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
 });
 
-// Frontend 
-
-Route::get('/', 'Frontend\HomeController@index')->name('home');
-Route::get('update-and-news',"Frontend\PostsController@index")->name('posts.index');
-Route::get('update-and-news/{post}',"Frontend\PostsController@show")->name('posts.show');
-Route::view('players', 'frontend.pages.players')->name('frontend.pages.players');
-Route::view('our-games', 'frontend.pages.games')->name('frontend.pages.games');
-Route::view('about', 'frontend.pages.about')->name('frontend.pages.about');
-Route::view('contact', 'frontend.pages.contact')->name('frontend.pages.contact');
-Route::view('privacy-policy', 'frontend.pages.privacy')->name('frontend.pages.privacy');
-Route::view('store-terms', 'frontend.pages.store-terms')->name('frontend.pages.store-terms');
-Route::view('general-terms', 'frontend.pages.general-terms')->name('frontend.pages.general-terms');
-Route::view('rules', 'frontend.pages.rules')->name('frontend.pages.rules');
-Route::view('reports', 'frontend.pages.reports')->name('frontend.pages.reports');
-Route::view('youtuber-apply', 'frontend.pages.youtuber-apply')->name('frontend.pages.youtuber-apply');
-
-Route::view('store', 'frontend.store.index')->name('frontend.store.index');
-
-
-
-
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth', '2fa']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
@@ -105,27 +133,6 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
         Route::post('profile/two-factor', 'ChangePasswordController@toggleTwoFactor')->name('password.toggleTwoFactor');
     }
-});
-Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['auth', '2fa']], function () {
-    Route::get('profile', 'ProfileController@index')->name('profile.index');
-    Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
-    Route::post('frontend/profile/destroy', 'ProfileController@destroy')->name('profile.destroy');
-    Route::post('frontend/profile/password', 'ProfileController@password')->name('profile.password');
-    Route::post('profile/toggle-two-factor', 'ProfileController@toggleTwoFactor')->name('profile.toggle-two-factor');
-
-    Route::view('player', 'frontend.playerStats')->name('player.stats');
-
-
-    Route::get('tickets', 'TicketController@index')->name('tickets.index');
-    Route::get('tickets/create', 'TicketController@createTicket')->name('tickets.createTicket');
-    Route::post('tickets', 'TicketController@storeTicket')->name('tickets.storeTicket');
-    Route::get('tickets/open', 'TicketController@showOpen')->name('tickets.showOpen');
-    Route::get('tickets/closed', 'TicketController@showClosed')->name('tickets.showClosed');
-    Route::get('tickets/{ticket}', 'TicketController@showMessages')->name('tickets.showMessages');
-    // Route::delete('tickets/{ticket}', 'TicketController@destroyTicket')->name('tickets.destroyTicket');
-    Route::post('tickets/{ticket}/reply', 'TicketController@replyToTicket')->name('tickets.reply');
-    Route::post('tickets/{ticket}/open', 'TicketController@openTicket')->name('ticket.open');
-    Route::post('tickets/{ticket}/close', 'TicketController@closeTicket')->name('ticket.close');
 });
 Route::group(['namespace' => 'Auth', 'middleware' => ['auth', '2fa']], function () {
     // Two Factor Authentication

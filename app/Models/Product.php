@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use \DateTimeInterface;
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,8 +14,12 @@ class Product extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
-    use Auditable;
     use HasFactory;
+
+    public const CATEGORY_SELECT = [
+        'ranks'  => 'Ranks',
+        'tokens' => 'Tokens',
+    ];
 
     public $table = 'products';
 
@@ -34,6 +37,8 @@ class Product extends Model implements HasMedia
         'name',
         'description',
         'price',
+        'package',
+        'category',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -45,14 +50,9 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function categories()
+    public function productOrders()
     {
-        return $this->belongsToMany(ProductCategory::class);
-    }
-
-    public function tags()
-    {
-        return $this->belongsToMany(ProductTag::class);
+        return $this->hasMany(Order::class, 'product_id', 'id');
     }
 
     public function getPhotoAttribute()

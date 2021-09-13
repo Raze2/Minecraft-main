@@ -20,15 +20,15 @@
                 <a href="{{ route('admin.tickets.showOpen') }}" class="list-group-item">
                     @if($unanswerd > 0)
                     <strong>
-                        {{ trans('global.open') }}
+                        {{ trans('global.open_tickets') }}
                         ({{ $unanswerd }})
                     </strong>
                     @else
-                    {{ trans('global.open') }}
+                    {{ trans('global.open_tickets') }}
                     @endif
                 </a>
                 <a href="{{ route('admin.tickets.showClosed') }}" class="list-group-item">
-                    {{ trans('global.closed') }}
+                    {{ trans('global.closed_tickets') }}
                 </a>
                 @can('all_ticket_access')
                 <a href="{{ route('admin.tickets.index') }}" class="list-group-item">
@@ -52,7 +52,7 @@
                             @endif
                             <div class="row d-flex">
                                 <div class="col-lg-2">{{ ucfirst($ticket->status) }}</div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <a href="{{ route('admin.tickets.showMessages', [$ticket->id]) }}">
                                         @if($ticket->answerd == 0)
                                         <strong>

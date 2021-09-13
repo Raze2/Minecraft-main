@@ -8,8 +8,6 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyPostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\ContentCategory;
-use App\Models\ContentTag;
 use App\Models\Post;
 use Gate;
 use Illuminate\Http\Request;
@@ -27,7 +25,7 @@ class PostsController extends Controller
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Post::with(['categories', 'tags'])->select(sprintf('%s.*', (new Post())->table));
+            $query = Post::select(sprintf('%s.*', (new Post())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -54,22 +52,6 @@ class PostsController extends Controller
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
             });
-            $table->editColumn('category', function ($row) {
-                $labels = [];
-                foreach ($row->categories as $category) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $category->name);
-                }
-
-                return implode(' ', $labels);
-            });
-            $table->editColumn('tag', function ($row) {
-                $labels = [];
-                foreach ($row->tags as $tag) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $tag->name);
-                }
-
-                return implode(' ', $labels);
-            });
             $table->editColumn('excerpt', function ($row) {
                 return $row->excerpt ? $row->excerpt : '';
             });
@@ -85,33 +67,24 @@ class PostsController extends Controller
                 return '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'category', 'tag', 'featured_image']);
+            $table->rawColumns(['actions', 'placeholder', 'featured_image']);
 
             return $table->make(true);
         }
 
-        $content_categories = ContentCategory::get();
-        $content_tags       = ContentTag::get();
-
-        return view('admin.posts.index', compact('content_categories', 'content_tags'));
+        return view('admin.posts.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = ContentCategory::pluck('name', 'id');
-
-        $tags = ContentTag::pluck('name', 'id');
-
-        return view('admin.posts.create', compact('categories', 'tags'));
+        return view('admin.posts.create');
     }
 
     public function store(StorePostRequest $request)
     {
         $post = Post::create($request->all());
-        $post->categories()->sync($request->input('categories', []));
-        $post->tags()->sync($request->input('tags', []));
         if ($request->input('featured_image', false)) {
             $post->addMedia(storage_path('tmp/uploads/' . basename($request->input('featured_image'))))->toMediaCollection('featured_image');
         }
@@ -127,20 +100,12 @@ class PostsController extends Controller
     {
         abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = ContentCategory::pluck('name', 'id');
-
-        $tags = ContentTag::pluck('name', 'id');
-
-        $post->load('categories', 'tags');
-
-        return view('admin.posts.edit', compact('categories', 'tags', 'post'));
+        return view('admin.posts.edit', compact('post'));
     }
 
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->all());
-        $post->categories()->sync($request->input('categories', []));
-        $post->tags()->sync($request->input('tags', []));
         if ($request->input('featured_image', false)) {
             if (!$post->featured_image || $request->input('featured_image') !== $post->featured_image->file_name) {
                 if ($post->featured_image) {
@@ -158,8 +123,6 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         abort_if(Gate::denies('post_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $post->load('categories', 'tags');
 
         return view('admin.posts.show', compact('post'));
     }

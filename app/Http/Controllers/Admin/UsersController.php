@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\CsvImportTrait;
-use App\Http\Requests\MassDestroyUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
-use Gate;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\Controller;
+use Gate;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\MassDestroyUserRequest;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\Traits\CsvImportTrait;
+
+
 
 class UsersController extends Controller
-{
+{       
     use CsvImportTrait;
 
     public function index(Request $request)
@@ -23,7 +25,9 @@ class UsersController extends Controller
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = User::with(['roles'])->select(sprintf('%s.*', (new User())->table));
+            $query = User::with(['roles'])->where(function($q){
+                $q->WhereNull('player')->OrWhere('player', '!=', 1);
+            })->select(sprintf('%s.*', (new User())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -53,10 +57,6 @@ class UsersController extends Controller
             $table->editColumn('email', function ($row) {
                 return $row->email ? $row->email : '';
             });
-
-            $table->editColumn('two_factor', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->two_factor ? 'checked' : null) . '>';
-            });
             $table->editColumn('roles', function ($row) {
                 $labels = [];
                 foreach ($row->roles as $role) {
@@ -71,8 +71,11 @@ class UsersController extends Controller
             $table->editColumn('uuid', function ($row) {
                 return $row->uuid ? $row->uuid : '';
             });
+            $table->editColumn('show', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->show ? 'checked' : null) . '>';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'two_factor', 'roles']);
+            $table->rawColumns(['actions', 'placeholder', 'two_factor', 'roles', 'show']);
 
             return $table->make(true);
         }
@@ -92,7 +95,7 @@ class UsersController extends Controller
     }
 
     public function store(StoreUserRequest $request)
-    {
+    {   
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 
@@ -122,7 +125,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'userUserAlerts');
+        $user->load('roles', 'userOrders');
 
         return view('admin.users.show', compact('user'));
     }
@@ -142,4 +145,5 @@ class UsersController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
 }

@@ -36,8 +36,8 @@
     @yield('styles')
 </head>
 
-<body class="body_bg">
-    <div id="app">
+<body class="body_bg" style="height: 100vh">
+    <div id="app" class="h-100 d-flex flex-column justify-content-center">
         <header class="d-flex justify-content-center">
             <a class="navbar-brand" href="{{ route('home') }}"> <img src="{{asset('img/logo.png')}}"
                 alt="logo"> </a>

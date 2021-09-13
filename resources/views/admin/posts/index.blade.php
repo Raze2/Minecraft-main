@@ -32,12 +32,6 @@
                         {{ trans('cruds.post.fields.title') }}
                     </th>
                     <th>
-                        {{ trans('cruds.post.fields.category') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.post.fields.tag') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.post.fields.featured_image') }}
                     </th>
                     <th>
@@ -52,22 +46,6 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($content_categories as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($content_tags as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
                     </td>
                     <td>
                     </td>
@@ -128,8 +106,6 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
-{ data: 'category', name: 'categories.name' },
-{ data: 'tag', name: 'tags.name' },
 { data: 'featured_image', name: 'featured_image', sortable: false, searchable: false },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

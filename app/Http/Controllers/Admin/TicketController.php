@@ -79,7 +79,7 @@ class TicketController extends Controller
     {
         abort_if(Gate::denies('ticket_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
-        $title = trans('global.open');
+        $title = trans('global.open_tickets');
 
         if(Gate::allows('all_ticket_access')){
             $tickets = Ticket::where('status', 'open')
@@ -102,7 +102,7 @@ class TicketController extends Controller
     {
         abort_if(Gate::denies('ticket_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $title = trans('global.closed');
+        $title = trans('global.closed_tickets');
 
         if(Gate::allows('all_ticket_access')){
             $tickets = Ticket::whereIn('status',['closed','permanently'])
@@ -136,7 +136,7 @@ class TicketController extends Controller
         $ticket->answerd = 1;
         $ticket->save();
 
-        return redirect()->route('admin.tickets.index');
+        return redirect()->back();
     }
 
     public function showReply(Ticket $ticket)

@@ -1,0 +1,44 @@
+html {
+  direction: rtl;
+  font-family: "cairo";
+}
+
+*:not(.fa,.fas,.fab,.far) , h1 ,h2,h3,h4,h5,h6{
+  font-family: "cairo" !important;
+}
+
+.banner_part {
+  background-image: url(../img/banner_bg-2_rtl.png);
+}
+
+p , .banner_text_iner , .post-area, .about_us_text, .single-post-area  {
+  text-align: right !important;
+}
+
+.blog_item_img .blog_item_date {
+  right: 40px;
+  left: auto !important;
+}
+
+.banner_text_iner p {
+  padding-right: 0 !important;
+}
+
+.in-going .text-white.float-left.position-absolute.m-3 {
+  left: 0px;
+}
+
+.conversations .nav {
+  direction: ltr;
+}
+
+nav .btn.btn_1 {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 3px !important;
+  border-bottom-left-radius: 3px !important;
+}
+
+div.single_pricing_part p {
+  text-align: center !important;
+}

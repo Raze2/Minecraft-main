@@ -1,4 +1,4 @@
-@extends('layouts.frontend', ['breadcrumb'=>'Rules'])
+@extends('layouts.frontend')
 
 @section('content')
     <section class="section_padding">
@@ -8,12 +8,12 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="section_tittle text-center">
-                            <h2 class="text-white">{!! $page->title !!}</h2>
+                            <h2 class="text-white">{!! app()->getLocale() == 'en' ? $page->title : $page->title_ar ?? $page->title !!}</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    {!! $page->page_text !!}
+                    {!! app()->getLocale() == 'en' ? $page->page_text : $page->page_text_ar ?? $page->page_text !!}
                 </div>
             @endisset
         </div>

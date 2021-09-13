@@ -1,8 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center h-100">
-        <div class="col-6">
+    <div class="row justify-content-center text-white">
+        <h2>Admin Login</h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
             <p class="login-box-msg">
                 {{ trans('global.login') }}
             </p>
@@ -38,14 +41,14 @@
 
 
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <div class="icheck-primary">
                             <input type="checkbox" name="remember" id="remember">
                             <label for="remember" class="text-white">{{ trans('global.remember_me') }}</label>
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-4">
+                    <div class="col-md-5">
                         <button type="submit" class="btn_1 btn-block">
                             {{ trans('global.login') }}
                         </button>
@@ -62,11 +65,11 @@
                     </a>
                 </p>
             @endif
-            <p class="mb-1">
+            {{-- <p class="mb-1">
                 <a class="text-center" href="{{ route('register') }}">
                     {{ trans('global.register') }}
                 </a>
-            </p>
+            </p> --}}
         </div>
         <!-- /.login-card-body -->
     </div>

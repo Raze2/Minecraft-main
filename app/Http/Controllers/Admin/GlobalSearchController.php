@@ -9,9 +9,9 @@ use Illuminate\Support\Str;
 class GlobalSearchController extends Controller
 {
     private $models = [
-        'User'   => 'cruds.users.title',
-        'Coupon' => 'cruds.coupon.title',
-        'Game'  => 'cruds.game.title',
+        'User'   => 'cruds.user.title',
+        // 'Coupon' => 'cruds.coupon.title',
+        // 'Game'  => 'cruds.game.title',
     ];
 
     public function search(Request $request)

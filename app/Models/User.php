@@ -5,25 +5,19 @@ namespace App\Models;
 use Hash;
 use Carbon\Carbon;
 use \DateTimeInterface;
-use App\Traits\Auditable;
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Notifications\VerifyUserNotification;
-use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable 
 {
     use SoftDeletes;
-    use InteractsWithMedia;
     use Notifiable;
-    use Auditable;
     use HasFactory;
 
     public $table = 'users';
@@ -31,10 +25,8 @@ class User extends Authenticatable implements HasMedia
     public static $searchable = [
         'username',
         'uuid',
-    ];
-
-    protected $appends = [
-        'skin_image',
+        'name',
+        'email',
     ];
 
     protected $hidden = [
@@ -61,6 +53,8 @@ class User extends Authenticatable implements HasMedia
         'created_at',
         'username',
         'uuid',
+        'player',
+        'show',
         'updated_at',
         'deleted_at',
         'two_factor_expires_at',
@@ -93,20 +87,14 @@ class User extends Authenticatable implements HasMedia
         $this->save();
     }
 
+    public function userOrders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id')->latest();
+    }
+
     public function getIsAdminAttribute()
     {
-        return $this->roles()->where('id', 1)->orWhere('id', 3)->exists();
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-        User::observe(new \App\Observers\UserActionObserver());
-    }
-
-    public function userUserAlerts()
-    {
-        return $this->belongsToMany(UserAlert::class);
+        return $this->roles()->where('id', 1)->exists();
     }
 
     public function getEmailVerifiedAtAttribute($value)
@@ -151,21 +139,4 @@ class User extends Authenticatable implements HasMedia
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 120, 120);
-    }
-
-    public function getSkinImageAttribute()
-    {
-        $file = $this->getMedia('skin_image')->last();
-        if ($file) {
-            $file->url       = $file->getUrl();
-            $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
-        }
-
-        return $file;
-    }
 }

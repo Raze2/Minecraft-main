@@ -20,9 +20,9 @@
                     <div class="blog_details mt-3">
                         <h2 class="text-white">{{ $post->title }}</h2>
                         @isset ($post->excerpt)
-                        {!! $post->excerpt !!}
+                        {!! app()->getLocale() == 'en' ? $post->excerpt : $post->excerpt_ar ?? $post->excerpt !!}
                         @endif
-                        {!!$post->body!!}
+                        {!! app()->getLocale() == 'en' ? $post->body : $post->body_ar ?? $post->body !!}
                     </div>
                 </div>
             </div>

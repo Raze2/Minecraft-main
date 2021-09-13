@@ -36,11 +36,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles" multiple required>
+                <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles" required>
                     @foreach($roles as $id => $role)
                         <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || $user->roles->contains($id)) ? 'selected' : '' }}>{{ $role }}</option>
                     @endforeach
@@ -67,6 +63,17 @@
                 <span class="help-block">{{ trans('cruds.user.fields.uuid_helper') }}</span>
             </div>
             <div class="form-group">
+                <div class="form-check {{ $errors->has('show') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="show" value="0">
+                    <input class="form-check-input" type="checkbox" name="show" id="show" value="1" {{ $user->show || old('show', 0) === 1 ? 'checked' : '' }}>
+                    <label class="form-check-label" for="show">{{ trans('cruds.user.fields.show') }}</label>
+                </div>
+                @if($errors->has('show'))
+                    <span class="text-danger">{{ $errors->first('show') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.show_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
@@ -78,3 +85,4 @@
 
 
 @endsection
+

@@ -1,7 +1,7 @@
 @extends('layouts.frontend', ['breadcrumb' => trans('global.new_ticket')])
 
 @section('content')
-<div class="content container">
+<div class="content container padding_top">
     <div class="row">
         <p class="col-lg-12">
             <a class="text-white" href="{{ route('frontend.tickets.showOpen') }}"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a> | 

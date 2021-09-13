@@ -33,22 +33,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.post.fields.category') }}
+                            {{ trans('cruds.post.fields.title_ar') }}
                         </th>
                         <td>
-                            @foreach($post->categories as $key => $category)
-                                <span class="label label-info">{{ $category->name }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.post.fields.tag') }}
-                        </th>
-                        <td>
-                            @foreach($post->tags as $key => $tag)
-                                <span class="label label-info">{{ $tag->name }}</span>
-                            @endforeach
+                            {{ $post->title_ar }}
                         </td>
                     </tr>
                     <tr>
@@ -61,10 +49,26 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.post.fields.body_ar') }}
+                        </th>
+                        <td>
+                            {!! $post->body_ar !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.post.fields.excerpt') }}
                         </th>
                         <td>
                             {{ $post->excerpt }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.post.fields.excerpt_ar') }}
+                        </th>
+                        <td>
+                            {{ $post->excerpt_ar }}
                         </td>
                     </tr>
                     <tr>

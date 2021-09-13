@@ -35,22 +35,16 @@
                         {{ trans('cruds.user.fields.email') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.email_verified_at') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.user.fields.two_factor') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.user.fields.roles') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.user.fields.skin_image') }}
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.username') }}
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.uuid') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.show') }}
                     </th>
                     <th>
                         &nbsp;
@@ -69,11 +63,6 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($roles as $key => $item)
@@ -82,12 +71,12 @@
                         </select>
                     </td>
                     <td>
-                    </td>
-                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -147,12 +136,10 @@
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
 { data: 'email', name: 'email' },
-{ data: 'email_verified_at', name: 'email_verified_at' },
-{ data: 'two_factor', name: 'two_factor' },
 { data: 'roles', name: 'roles.title' },
-{ data: 'skin_image', name: 'skin_image', sortable: false, searchable: false },
 { data: 'username', name: 'username' },
 { data: 'uuid', name: 'uuid' },
+{ data: 'show', name: 'show' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

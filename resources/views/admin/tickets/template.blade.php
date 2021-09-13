@@ -25,15 +25,15 @@
                 <a href="{{ route('admin.tickets.showOpen') }}" class="list-group-item">
                     @if($unanswerd > 0)
                         <strong>
-                            {{ trans('global.open') }}
+                            {{ trans('global.open_tickets') }}
                             ({{ $unanswerd }})
                         </strong>
                     @else
-                        {{ trans('global.open') }}
+                        {{ trans('global.open_tickets') }}
                     @endif
                 </a>
                 <a href="{{ route('admin.tickets.showClosed') }}" class="list-group-item">
-                    {{ trans('global.closed') }}
+                    {{ trans('global.closed_tickets') }}
                 </a>
             </div>
         </div>

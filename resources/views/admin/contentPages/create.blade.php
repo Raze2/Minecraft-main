@@ -10,28 +10,52 @@
         <form method="POST" action="{{ route("admin.content-pages.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label class="required" for="title">{{ trans('cruds.contentPage.fields.title') }}</label>
-                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
-                @if($errors->has('title'))
-                    <span class="text-danger">{{ $errors->first('title') }}</span>
+              <label class="required" for="title">{{ trans('cruds.contentPage.fields.title') }}</label>
+              <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
+              @if($errors->has('title'))
+                  <span class="text-danger">{{ $errors->first('title') }}</span>
+              @endif
+              <span class="help-block">{{ trans('cruds.contentPage.fields.title_helper') }}</span>
+          </div>
+            <div class="form-group">
+                <label for="title_ar">{{ trans('cruds.contentPage.fields.title_ar') }}</label>
+                <input class="form-control {{ $errors->has('title_ar') ? 'is-invalid' : '' }}" type="text" name="title_ar" id="title_ar" value="{{ old('title_ar', '') }}">
+                @if($errors->has('title_ar'))
+                    <span class="text-danger">{{ $errors->first('title_ar') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.contentPage.fields.title_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.contentPage.fields.title_ar_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="page_text">{{ trans('cruds.contentPage.fields.page_text') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('page_text') ? 'is-invalid' : '' }}" name="page_text" id="page_text">{!! old('page_text') !!}</textarea>
-                @if($errors->has('page_text'))
-                    <span class="text-danger">{{ $errors->first('page_text') }}</span>
+              <label for="page_text">{{ trans('cruds.contentPage.fields.page_text') }}</label>
+              <textarea class="form-control ckeditor {{ $errors->has('page_text') ? 'is-invalid' : '' }}" name="page_text" id="page_text">{!! old('page_text') !!}</textarea>
+              @if($errors->has('page_text'))
+                  <span class="text-danger">{{ $errors->first('page_text') }}</span>
+              @endif
+              <span class="help-block">{{ trans('cruds.contentPage.fields.page_text_helper') }}</span>
+          </div>
+            <div class="form-group">
+                <label for="page_text_ar">{{ trans('cruds.contentPage.fields.page_text_ar') }}</label>
+                <textarea class="form-control ckeditor {{ $errors->has('page_text_ar') ? 'is-invalid' : '' }}" name="page_text_ar" id="page_text_ar">{!! old('page_text_ar') !!}</textarea>
+                @if($errors->has('page_text_ar'))
+                    <span class="text-danger">{{ $errors->first('page_text_ar') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.contentPage.fields.page_text_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.contentPage.fields.page_text_ar_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="excerpt">{{ trans('cruds.contentPage.fields.excerpt') }}</label>
-                <textarea class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt" id="excerpt">{{ old('excerpt') }}</textarea>
-                @if($errors->has('excerpt'))
-                    <span class="text-danger">{{ $errors->first('excerpt') }}</span>
+              <label for="excerpt">{{ trans('cruds.contentPage.fields.excerpt') }}</label>
+              <textarea class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt" id="excerpt">{{ old('excerpt') }}</textarea>
+              @if($errors->has('excerpt'))
+                  <span class="text-danger">{{ $errors->first('excerpt') }}</span>
+              @endif
+              <span class="help-block">{{ trans('cruds.contentPage.fields.excerpt_helper') }}</span>
+          </div>
+            <div class="form-group">
+                <label for="excerpt_ar">{{ trans('cruds.contentPage.fields.excerpt_ar') }}</label>
+                <textarea class="form-control {{ $errors->has('excerpt_ar') ? 'is-invalid' : '' }}" name="excerpt_ar" id="excerpt_ar">{{ old('excerpt_ar') }}</textarea>
+                @if($errors->has('excerpt_ar'))
+                    <span class="text-danger">{{ $errors->first('excerpt_ar') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.contentPage.fields.excerpt_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.contentPage.fields.excerpt_ar_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="featured_image">{{ trans('cruds.contentPage.fields.featured_image') }}</label>

@@ -51,8 +51,12 @@
             <div class="messeges wrap" id="messeges">
                 @foreach($ticket->messages as $message)
                 <div class="text {{ $message->is_admin ? 'in-going' : 'out-going'}}">
-                    <span
-                        class=" {{ $message->is_admin ? 'float-left' : 'float-right'}} m-3">{{ $message->sender->name }}</span>
+                    <div class="position-relative">
+                        @if ($message->is_admin)
+                        <span class="{{ $message->is_admin ? 'float-left' : 'float-right'}} m-3"><strong>{{ Str::singular($message->sender->roles->first()->title) }}</strong></span>
+                        @endif
+                        <p class="{{ $message->is_admin ? 'float-left position-absolute' : 'float-right'}} m-3" style="{{$message->is_admin ? 'top: 2rem;' : ''}}">{{ $message->sender->username ?? $message->sender->name  }}</p>
+                    </div>
                     {{-- <img src="img/avatar1.jpg" class="img-fluid rounded-circle float-left" alt=""> --}}
                     <hgroup class="speech-bubble messege {{ $message->is_admin ? 'float-left' : 'float-right'}}">
                         <p class="text-dark font-weight-bold">{!! nl2br(e($message->content)) !!}</p>
@@ -71,13 +75,13 @@
                         {{-- <button class="col " type="button" name=""><i class="fa fa-paperclip fa-lg"></i>
                             </button> --}}
                         <!-- Text input -->
-                        <div class="form-group messege-input col-10">
-                            <textarea class="form-control" name="content" placeholder="Type your message"
-                                required></textarea>
+                        <div class="form-group messege-input col-11">
+                            <textarea class="form-control text-white" name="content" placeholder="Type your message"
+                            style="min-height: 15px;" required></textarea>
                         </div>
                         <!-- send button -->
                         <button class="col btn btn-primary mr-3" type="submit" name=""><i
-                                class="fa fa fa-paper-plane fa-3x"></i>
+                                class="fa fa fa-paper-plane fa-2x"></i>
                         </button>
                     </form>
                 </div>

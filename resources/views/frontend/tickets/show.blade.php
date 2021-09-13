@@ -1,7 +1,7 @@
-@extends('layouts.frontend', ['breadcrumb' => 'Ticket No. ' . $ticket->id])
+@extends('layouts.frontend')
 
 @section('content')
-<div class="content container">
+<div class="content container padding_top">
     <div class="row">
         <!-- Start The Middle Side -->
         <div class="col-12 conversations p-0">
@@ -25,9 +25,9 @@
                 <div class="text {{ $message->is_admin ? 'in-going' : 'out-going'}}">
                     <div class="position-relative">
                         @if ($message->is_admin)
-                        <span class="text-white {{ $message->is_admin ? 'float-left' : 'float-right'}} m-3">{{ $message->sender->roles->first()->title }}</span>
+                        <span class="text-white {{ $message->is_admin ? 'float-left' : 'float-right'}} m-3"><strong>{{ Str::singular($message->sender->roles->first()->title) }}</strong></span>
                         @endif
-                        <p class="text-white {{ $message->is_admin ? 'float-left position-absolute' : 'float-right'}} m-3" style="{{$message->is_admin ? 'top: 2rem;' : ''}}">{{ $message->sender->name }}</p>
+                        <p class="text-white {{ $message->is_admin ? 'float-left position-absolute' : 'float-right'}} m-3" style="{{$message->is_admin ? 'top: 2rem;' : ''}}">{{ $message->sender->username ?? $message->sender->name  }}</p>
                     </div>
                     {{-- <img src="img/avatar1.jpg" class="img-fluid rounded-circle float-left" alt=""> --}}
                     <hgroup class="speech-bubble messege {{ $message->is_admin ? 'float-left' : 'float-right'}}">
@@ -82,7 +82,7 @@
                             </button> --}}
                             <!-- Text input -->
                             <div class="form-group messege-input col-11">
-                                <input class="form-control" name="content" placeholder="Type your message" required>
+                                <input class="form-control" name="content" placeholder="{{__('frontend.typeurmessage')}}" required>
                             </div>
                             <!-- send button -->
                             <button class="col text-white mr-3" type="submit" name=""><i class="fa fa-send send-button-i"></i>
@@ -96,14 +96,14 @@
                         <form action="{{ route('frontend.ticket.open', [$ticket->id]) }}" method="POST"
                             onsubmit="return confirm('{{ trans('global.areYouSure') }}');">
                             @csrf
-                            This Ticket is Closed You Can Open it again   <button class="text-white btn_1 p-3" type="submit" name=""> Open Ticket</button>
+                            {{__('frontend.tickedclosed')}}   <button class="text-white btn_1 p-3" type="submit" name=""> {{__('frontend.openticket')}}</button>
                         </form>
                     </div>
                 </div>
             @else
                 <div class="row text">
                     <div class="text-input text-center text-white">
-                        This Ticket is permanently Closed
+                        {{__('frontend.tickedpermanentlyclosed')}}
                     </div>
                 </div>
             @endif

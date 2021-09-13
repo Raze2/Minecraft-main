@@ -2,129 +2,50 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyProductRequest;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use Carbon\Carbon;
+use App\Models\Coupon;
 use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductTag;
-use Gate;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    use MediaUploadingTrait;
-
-    public function index()
+    public function index($cat)
     {
-        abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $products = Product::with('media')->where('category', $cat)->get();
 
-        $products = Product::with(['categories', 'tags', 'media'])->get();
-
-        $product_categories = ProductCategory::get();
-
-        $product_tags = ProductTag::get();
-
-        return view('frontend.products.index', compact('products', 'product_categories', 'product_tags'));
+        return view('frontend.store.index', compact('products', 'cat'));
     }
 
-    public function create()
+    public function pay(Product $product)
     {
-        abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $categories = ProductCategory::pluck('name', 'id');
-
-        $tags = ProductTag::pluck('name', 'id');
-
-        return view('frontend.products.create', compact('categories', 'tags'));
+        return view('frontend.store.pay', compact('product'));
     }
 
-    public function store(StoreProductRequest $request)
-    {
-        $product = Product::create($request->all());
-        $product->categories()->sync($request->input('categories', []));
-        $product->tags()->sync($request->input('tags', []));
-        if ($request->input('photo', false)) {
-            $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+    public function checkCoupon(Request $request) {
+        $data = json_decode($request->getContent(), true);
+        $coupon = Coupon::where('code', $data['coupon'])->first();
+        if(!isset($coupon)){
+            return response()->json(['status'=> false, 'msg'=> 'Not Found']);
+        }
+        $validCoupon = Coupon::where('id', $coupon->id);
+        if(isset($coupon->uses_allowed) && $coupon->uses_allowed != 0){
+            $validCoupon->where('uses_allowed', '>', $coupon->used_times ?? 0);
         }
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $product->id]);
+        if(isset($coupon->start_date)&& $coupon->start_date != 0){
+            $validCoupon->whereDate('start_date', '<', Carbon::now());
         }
 
-        return redirect()->route('frontend.products.index');
-    }
-
-    public function edit(Product $product)
-    {
-        abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $categories = ProductCategory::pluck('name', 'id');
-
-        $tags = ProductTag::pluck('name', 'id');
-
-        $product->load('categories', 'tags');
-
-        return view('frontend.products.edit', compact('categories', 'tags', 'product'));
-    }
-
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        $product->update($request->all());
-        $product->categories()->sync($request->input('categories', []));
-        $product->tags()->sync($request->input('tags', []));
-        if ($request->input('photo', false)) {
-            if (!$product->photo || $request->input('photo') !== $product->photo->file_name) {
-                if ($product->photo) {
-                    $product->photo->delete();
-                }
-                $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
-            }
-        } elseif ($product->photo) {
-            $product->photo->delete();
+        if(isset($coupon->end_date) && $coupon->end_date != 0){
+            $validCoupon->whereDate('end_date', '>', Carbon::now());
         }
 
-        return redirect()->route('frontend.products.index');
-    }
+        $validCoupon = $validCoupon->first();
 
-    public function show(Product $product)
-    {
-        abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $product->load('categories', 'tags');
-
-        return view('frontend.products.show', compact('product'));
-    }
-
-    public function destroy(Product $product)
-    {
-        abort_if(Gate::denies('product_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $product->delete();
-
-        return back();
-    }
-
-    public function massDestroy(MassDestroyProductRequest $request)
-    {
-        Product::whereIn('id', request('ids'))->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    public function storeCKEditorImages(Request $request)
-    {
-        abort_if(Gate::denies('product_create') && Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $model         = new Product();
-        $model->id     = $request->input('crud_id', 0);
-        $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
-
-        return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
+        if(!isset($validCoupon)) {
+            return response()->json(['status'=> false, 'msg'=> 'Expired Coupon']);
+        } 
+        return response()->json(['status'=> true, 'type'=> $validCoupon->type, 'percent_off'=> $validCoupon->percent_off , 'value'=> $validCoupon->value]);
     }
 }

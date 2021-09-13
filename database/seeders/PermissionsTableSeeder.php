@@ -76,160 +76,156 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 17,
-                'title' => 'audit_log_show',
-            ],
-            [
-                'id'    => 18,
-                'title' => 'audit_log_access',
-            ],
-            [
-                'id'    => 19,
-                'title' => 'user_alert_create',
-            ],
-            [
-                'id'    => 20,
-                'title' => 'user_alert_show',
-            ],
-            [
-                'id'    => 21,
-                'title' => 'user_alert_delete',
-            ],
-            [
-                'id'    => 22,
-                'title' => 'user_alert_access',
-            ],
-            [
-                'id'    => 23,
                 'title' => 'content_management_access',
             ],
             [
-                'id'    => 24,
-                'title' => 'content_category_create',
-            ],
-            [
-                'id'    => 25,
-                'title' => 'content_category_edit',
-            ],
-            [
-                'id'    => 26,
-                'title' => 'content_category_show',
-            ],
-            [
-                'id'    => 27,
-                'title' => 'content_category_delete',
-            ],
-            [
-                'id'    => 28,
-                'title' => 'content_category_access',
-            ],
-            [
-                'id'    => 29,
-                'title' => 'content_tag_create',
-            ],
-            [
-                'id'    => 30,
-                'title' => 'content_tag_edit',
-            ],
-            [
-                'id'    => 31,
-                'title' => 'content_tag_show',
-            ],
-            [
-                'id'    => 32,
-                'title' => 'content_tag_delete',
-            ],
-            [
-                'id'    => 33,
-                'title' => 'content_tag_access',
-            ],
-            [
-                'id'    => 34,
+                'id'    => 18,
                 'title' => 'content_page_create',
             ],
             [
-                'id'    => 35,
+                'id'    => 19,
                 'title' => 'content_page_edit',
             ],
             [
-                'id'    => 36,
+                'id'    => 20,
                 'title' => 'content_page_show',
             ],
             [
-                'id'    => 37,
+                'id'    => 21,
                 'title' => 'content_page_delete',
             ],
             [
-                'id'    => 38,
+                'id'    => 22,
                 'title' => 'content_page_access',
             ],
             [
-                'id'    => 39,
+                'id'    => 23,
                 'title' => 'post_create',
             ],
             [
-                'id'    => 40,
+                'id'    => 24,
                 'title' => 'post_edit',
             ],
             [
-                'id'    => 41,
+                'id'    => 25,
                 'title' => 'post_show',
             ],
             [
-                'id'    => 42,
+                'id'    => 26,
                 'title' => 'post_delete',
             ],
             [
-                'id'    => 43,
+                'id'    => 27,
                 'title' => 'post_access',
             ],
             [
-                'id'    => 44,
+                'id'    => 28,
                 'title' => 'game_create',
             ],
             [
-                'id'    => 45,
+                'id'    => 29,
                 'title' => 'game_edit',
             ],
             [
-                'id'    => 46,
+                'id'    => 30,
                 'title' => 'game_show',
             ],
             [
-                'id'    => 47,
+                'id'    => 31,
                 'title' => 'game_delete',
             ],
             [
-                'id'    => 48,
+                'id'    => 32,
                 'title' => 'game_access',
             ],
             [
-                'id'    => 49,
+                'id'    => 33,
                 'title' => 'all_ticket_access'
             ],
             [
-                'id'    => 50,
+                'id'    => 34,
                 'title' => 'ticket_create',
             ],
             [
-                'id'    => 51,
+                'id'    => 35,
                 'title' => 'ticket_edit',
             ],
             [
-                'id'    => 52,
+                'id'    => 36,
                 'title' => 'ticket_show',
             ],
             [
-                'id'    => 53,
+                'id'    => 37,
                 'title' => 'ticket_delete',
             ],
             [
-                'id'    => 54,
+                'id'    => 38,
                 'title' => 'ticket_access',
             ],
             [
-                'id'    => 55,
+                'id'    => 39,
                 'title' => 'profile_password_edit',
             ],
+            [
+                'id'    => 40,
+                'title' => 'product_management_access',
+            ],
+            [
+                'id'    => 41,
+                'title' => 'product_create',
+            ],
+            [
+                'id'    => 42,
+                'title' => 'product_edit',
+            ],
+            [
+                'id'    => 43,
+                'title' => 'product_show',
+            ],
+            [
+                'id'    => 44,
+                'title' => 'product_delete',
+            ],
+            [
+                'id'    => 45,
+                'title' => 'product_access',
+            ],
+            [
+                'id'    => 46,
+                'title' => 'coupon_create',
+            ],
+            [
+                'id'    => 47,
+                'title' => 'coupon_edit',
+            ],
+            [
+                'id'    => 48,
+                'title' => 'coupon_show',
+            ],
+            [
+                'id'    => 49,
+                'title' => 'coupon_delete',
+            ],
+            [
+                'id'    => 50,
+                'title' => 'coupon_access',
+            ],
+            [
+                'id'    => 51,
+                'title' => 'order_create',
+            ],
+            [
+                'id'    => 52,
+                'title' => 'order_show',
+            ],
+            [
+                'id'    => 53,
+                'title' => 'order_access',
+            ],
+            [
+                'id'    => 54,
+                'title' => 'no_permession',
+            ], 
         ];
 
         Permission::insert($permissions);

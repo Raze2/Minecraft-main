@@ -33,7 +33,23 @@ class StoreCouponRequest extends FormRequest
                 'max:2147483647',
             ],
             'percent_off' => [
-                'string',
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'uses_allowed' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'start_date' => [
+                'date_format:' . config('panel.date_format'),
+                'nullable',
+            ],
+            'end_date' => [
+                'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
         ];

@@ -24,17 +24,12 @@ class UpdateProductRequest extends FormRequest
             'price' => [
                 'required',
             ],
-            'categories.*' => [
+            'package' => [
+                'required',
+                'nullable',
                 'integer',
-            ],
-            'categories' => [
-                'array',
-            ],
-            'tags.*' => [
-                'integer',
-            ],
-            'tags' => [
-                'array',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

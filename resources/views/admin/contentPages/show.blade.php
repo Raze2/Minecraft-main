@@ -33,6 +33,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.contentPage.fields.title_ar') }}
+                        </th>
+                        <td>
+                            {{ $contentPage->title_ar }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.contentPage.fields.page_text') }}
                         </th>
                         <td>
@@ -41,10 +49,26 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.contentPage.fields.page_text_ar') }}
+                        </th>
+                        <td>
+                            {!! $contentPage->page_text_ar !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.contentPage.fields.excerpt') }}
                         </th>
                         <td>
                             {{ $contentPage->excerpt }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.excerpt_ar') }}
+                        </th>
+                        <td>
+                            {{ $contentPage->excerpt_ar }}
                         </td>
                     </tr>
                     <tr>

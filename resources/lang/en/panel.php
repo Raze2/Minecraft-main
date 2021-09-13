@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Minecraft',
+    'site_title' => 'MilanMC',
 ];

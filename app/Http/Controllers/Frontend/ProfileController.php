@@ -1,64 +1,63 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdatePasswordRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use Gate;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
+
 
 class ProfileController extends Controller
 {
-    public function index()
-    {
-        return view('frontend.profile');
-    }
-
-    public function update(UpdateProfileRequest $request)
-    {
-        $user = auth()->user();
-
-        $user->update($request->validated());
-
-        return redirect()->route('frontend.profile.index')->with('message', __('global.update_profile_success'));
-    }
-
-    public function destroy()
-    {
-        $user = auth()->user();
-
-        $user->update([
-            'email' => time() . '_' . $user->email,
-        ]);
-
-        $user->delete();
-
-        return redirect()->route('login')->with('message', __('global.delete_account_success'));
-    }
-
-    public function password(UpdatePasswordRequest $request)
-    {
-        auth()->user()->update($request->validated());
-
-        return redirect()->route('frontend.profile.index')->with('message', __('global.change_password_success'));
-    }
-
-    public function toggleTwoFactor(Request $request)
-    {
-        $user = auth()->user();
-
-        if ($user->two_factor) {
-            $message = __('global.two_factor.disabled');
+    public function getStats() {
+        $mincraftPlayer = Http::get('https://playerdb.co/api/player/minecraft/' . auth()->user()->uuid);
+        
+        if($mincraftPlayer['success'] == 1){
+            $uuid =$mincraftPlayer['data']['player']['id'];
         } else {
-            $message = __('global.two_factor.enabled');
+            $uuid = substr_replace(auth()->user()->uuid, '-', 8, 0);
+            $uuid = substr_replace($uuid, '-', 13, 0);
+            $uuid = substr_replace($uuid, '-', 18, 0);
+            $uuid = substr_replace($uuid, '-', 23, 0);
         }
+        // dd($uuid);
+        $user = ['username' => auth()->user()->username , 'uuid' => $uuid];
+        $playerStats = Http::get('http://31.214.246.3:81/api/v1/players/' .  $uuid);
 
-        $user->two_factor = !$user->two_factor;
+        if(isset($playerStats['stats'])){
+            $playerStats = $playerStats['stats'];
+        } else {
+            $playerStats = Null;
+        }
+        
+        return view('frontend.playerStats', compact('playerStats', 'user'));
+    }
 
-        $user->save();
-
-        return redirect()->route('frontend.profile.index')->with('message', $message);
+    public function searchIGN(Request $request) {
+        $searchUser = DB::connection('players')->select('select uniqueId,lastNickname  from user_profiles where lastNickname LIKE ?', ['%'. $request->username .'%']);
+        if($searchUser){
+            $mincraftPlayer = Http::get('https://playerdb.co/api/player/minecraft/' . $searchUser[0]->uniqueId); 
+            if($mincraftPlayer['success'] == 1){
+                $uuid =$mincraftPlayer['data']['player']['id'];
+            } else {
+                $uuid = substr_replace($searchUser[0]->uniqueId, '-', 8, 0);
+                $uuid = substr_replace($uuid, '-', 13, 0);
+                $uuid = substr_replace($uuid, '-', 18, 0);
+                $uuid = substr_replace($uuid, '-', 23, 0);
+            }
+            // dd($uuid);
+            $user = ['username' => $searchUser[0]->lastNickname , 'uuid' => $uuid];
+            $playerStats = Http::get('http://31.214.246.3:81/api/v1/players/' .  $uuid);
+            if(isset($playerStats['stats'])){
+                $playerStats = $playerStats['stats'];
+            } else {
+                $playerStats = Null;
+            }
+        } else {
+            $user = Null;
+            $playerStats = Null;
+        }
+        
+        return view('frontend.playerStats', compact('playerStats', 'user'));
     }
 }

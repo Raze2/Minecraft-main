@@ -10,60 +10,52 @@
         <form method="POST" action="{{ route("admin.posts.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label class="required" for="title">{{ trans('cruds.post.fields.title') }}</label>
-                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
-                @if($errors->has('title'))
-                    <span class="text-danger">{{ $errors->first('title') }}</span>
+              <label class="required" for="title">{{ trans('cruds.post.fields.title') }}</label>
+              <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
+              @if($errors->has('title'))
+                  <span class="text-danger">{{ $errors->first('title') }}</span>
+              @endif
+              <span class="help-block">{{ trans('cruds.post.fields.title_helper') }}</span>
+          </div>
+            <div class="form-group">
+                <label for="title_ar">{{ trans('cruds.post.fields.title_ar') }}</label>
+                <input class="form-control {{ $errors->has('title_ar') ? 'is-invalid' : '' }}" type="text" name="title_ar" id="title_ar" value="{{ old('title_ar', '') }}">
+                @if($errors->has('title_ar'))
+                    <span class="text-danger">{{ $errors->first('title_ar') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.post.fields.title_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.post.fields.title_ar_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="categories">{{ trans('cruds.post.fields.category') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('categories') ? 'is-invalid' : '' }}" name="categories[]" id="categories" multiple>
-                    @foreach($categories as $id => $category)
-                        <option value="{{ $id }}" {{ in_array($id, old('categories', [])) ? 'selected' : '' }}>{{ $category }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('categories'))
-                    <span class="text-danger">{{ $errors->first('categories') }}</span>
+              <label for="body">{{ trans('cruds.post.fields.body') }}</label>
+              <textarea class="form-control ckeditor {{ $errors->has('body') ? 'is-invalid' : '' }}" name="body" id="body">{!! old('body') !!}</textarea>
+              @if($errors->has('body'))
+                  <span class="text-danger">{{ $errors->first('body') }}</span>
+              @endif
+              <span class="help-block">{{ trans('cruds.post.fields.body_helper') }}</span>
+          </div>
+            <div class="form-group">
+                <label for="body_ar">{{ trans('cruds.post.fields.body_ar') }}</label>
+                <textarea class="form-control ckeditor {{ $errors->has('body_ar') ? 'is-invalid' : '' }}" name="body_ar" id="body_ar">{!! old('body_ar') !!}</textarea>
+                @if($errors->has('body_ar'))
+                    <span class="text-danger">{{ $errors->first('body_ar') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.post.fields.category_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.post.fields.body_ar_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="tags">{{ trans('cruds.post.fields.tag') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" name="tags[]" id="tags" multiple>
-                    @foreach($tags as $id => $tag)
-                        <option value="{{ $id }}" {{ in_array($id, old('tags', [])) ? 'selected' : '' }}>{{ $tag }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('tags'))
-                    <span class="text-danger">{{ $errors->first('tags') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.post.fields.tag_helper') }}</span>
-            </div>
+              <label for="excerpt">{{ trans('cruds.post.fields.excerpt') }}</label>
+              <textarea class="form-control ckeditor {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt" id="excerpt">{{ old('excerpt') }}</textarea>
+              @if($errors->has('excerpt'))
+                  <span class="text-danger">{{ $errors->first('excerpt') }}</span>
+              @endif
+              <span class="help-block">{{ trans('cruds.post.fields.excerpt_helper') }}</span>
+          </div>
             <div class="form-group">
-                <label for="body">{{ trans('cruds.post.fields.body') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('body') ? 'is-invalid' : '' }}" name="body" id="body">{!! old('body') !!}</textarea>
-                @if($errors->has('body'))
-                    <span class="text-danger">{{ $errors->first('body') }}</span>
+                <label for="excerpt_ar">{{ trans('cruds.post.fields.excerpt_ar') }}</label>
+                <textarea class="form-control ckeditor {{ $errors->has('excerpt_ar') ? 'is-invalid' : '' }}" name="excerpt_ar" id="excerpt_ar">{{ old('excerpt_ar') }}</textarea>
+                @if($errors->has('excerpt_ar'))
+                    <span class="text-danger">{{ $errors->first('excerpt_ar') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.post.fields.body_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="excerpt">{{ trans('cruds.post.fields.excerpt') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt" id="excerpt">{{ old('excerpt') }}</textarea>
-                @if($errors->has('excerpt'))
-                    <span class="text-danger">{{ $errors->first('excerpt') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.post.fields.excerpt_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.post.fields.excerpt_ar_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="featured_image">{{ trans('cruds.post.fields.featured_image') }}</label>

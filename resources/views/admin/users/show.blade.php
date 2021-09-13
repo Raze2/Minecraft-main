@@ -81,6 +81,14 @@
                             {{ $user->uuid }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.show') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $user->show ? 'checked' : '' }}>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -98,14 +106,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
-                {{ trans('cruds.userAlert.title') }}
+            <a class="nav-link" href="#user_orders" role="tab" data-toggle="tab">
+                {{ trans('cruds.order.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="user_user_alerts">
-            @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
+        <div class="tab-pane" role="tabpanel" id="user_orders">
+            @includeIf('admin.users.relationships.userOrders', ['orders' => $user->userOrders])
         </div>
     </div>
 </div>

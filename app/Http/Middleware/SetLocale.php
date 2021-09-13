@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Carbon\Carbon;
 
 class SetLocale
 {
@@ -13,12 +14,15 @@ class SetLocale
             $language = request('change_language');
         } elseif (session('language')) {
             $language = session('language');
-        } elseif (config('panel.primary_language')) {
-            $language = config('panel.primary_language');
+        } else {
+            $language = 'en';
         }
 
         if (isset($language)) {
             app()->setLocale($language);
+            // Carbon::setLocale($language);
+            // if($language = 'ar')
+            //     setlocale(LC_ALL,'ar_SA.UTF-8');
         }
 
         return $next($request);

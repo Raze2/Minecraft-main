@@ -37,6 +37,13 @@ class Role extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function showUsers()
+    {
+        return $this->belongsToMany(User::class)->where('show', 1)->where('player', '!=', 1)->where(function($query){
+            $query->whereNotNull('username')->orWhereNotNull('uuid');
+        });
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
